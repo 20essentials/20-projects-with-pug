@@ -1,0 +1,81 @@
+---
+import '@/styles/global.css';
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='./assets/favicon.webp' />
+    <title>20 Projects With Pug</title>
+  </head>
+  <body>
+    <div class='cosmic-plasma'>
+      <span class='plasma-overlay'></span>
+      <svg class='texture-filter'>
+        <filter id='plasma-texture'>
+          <feTurbulence
+            result='noise'
+            numOctaves='4'
+            baseFrequency='0.02'
+            type='fractalNoise'></feTurbulence>
+          <feColorMatrix result='hue' values='0' type='hueRotate'></feColorMatrix>
+          <feGaussianBlur result='blur' stdDeviation='2' in='hue'
+          ></feGaussianBlur>
+          <feBlend mode='multiply' in2='blur' in='SourceGraphic'></feBlend>
+        </filter>
+      </svg>
+    </div>
+
+    <slot />
+  </body>
+</html>
+
+<style>
+  .cosmic-plasma {
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+      from 45deg,
+      rgba(255, 0, 0, 0.4),
+      rgba(0, 0, 255, 0.4),
+      rgba(255, 0, 255, 0.4),
+      rgba(0, 255, 0, 0.4),
+      rgba(255, 0, 0, 0.4)
+    );
+    filter: url(#plasma-texture);
+    position: fixed;
+    z-index: -1;
+  }
+
+  .plasma-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 70%
+    );
+    animation: swirl 10s infinite linear;
+  }
+
+  @keyframes swirl {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<!-- <script>
+  window.addEventListener('resize', e => {
+    document.title = `${window.innerWidth}`;
+  });
+</script>
+ -->
